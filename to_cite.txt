@@ -1,0 +1,80 @@
+***** Check list
+MI-CLAIM https://github.com/beaunorgeot/MI-CLAIM
+QUADAS-2 https://www.nice.org.uk/process/pmg6/resources/the-guidelines-manual-appendices-bi-2549703709/chapter/appendix-f-methodology-checklist-the-quadas-2-tool-for-studies-of-diagnostic-test-accuracy
+
+1. Automatic detection of temporomandibular joint osteoarthritis radiographic features using deep learning artificial intelligence. A Diagnostic accuracy study
+Link: https://www.sciencedirect.com/science/article/pii/S2468785524004130
+Goal: To measure AI performance against human
+Data: CBCT images, 150 mm voxel size. 276 patients. 397 condyles.
+Model: Yolo5v7 from https://pubmed.ncbi.nlm.nih.gov/37749161/ [2]
+Conclulsion: AI model performance is about the same as practitioner
+Interesting remark: "Despite being a needed standardization requirement, one of the limitations of this study and this trained AI model is the use of a single device with uniform acquisition parameters of the CBCT and uniform acquisition parameters" // We need generalized model accross image acquisition setting
+==================================================================================================
+2. An artificial intelligence model for the radiographic diagnosis of osteoarthritis of the temporomandibular joint 
+Link: https://pubmed.ncbi.nlm.nih.gov/37749161/
+Goal: Develop TMJOA classification model
+Data: 2737+350 CBCT images from 943 patients. Voxel size 150 mm, FOV 15*15 cm slice thickness 1.0 mm.
+Model: Yolo5v7. 76,185,580 parameters.
+Result: 
+            Sensitivity Specificity PPV     NPV     Accuracy    Cohen's kappa
+Flatenning  0.96        1.00        1.00    0.99    0.99        0.97
+SubCyst     0.99        0.98        0.96    1.00    0.98        0.96
+Erosion     1.00        1.00        1.00    1.00    1.00        1.00
+Osteophyte  0.97        0.98        0.86    1.00    0.98        0.90
+Interesting remark: TMJOA classification is subjective
+==================================================================================================
+3. Automated diagnosis and classification of temporomandibular joint degenerative disease via artificial intelligence using CBCT imaging 
+Link: https://pubmed.ncbi.nlm.nih.gov/39870190/
+Goal: Developing model
+Data: 7357 sagittal images from 1018 patients.
+Model: YOLOv10
+Method: 2 Step 
+1. Normal vs DJD classification
+2. Classify as Erosion Osteophytes Sclerosis or Subchondral cysts
+Results:
+
+For normal vs DJD
+        Accuracy    Precision   Sensitivity Specificity F1-score    mAP (IoU=0.5)
+Normal  0.98        0.97        0.96        0.98        0.97        0.99
+Djd     0.98        0.97        0.98        0.96        0.97        0.99
+
+For signs of DJD
+                Accuracy    Precision   Sensitivity Specificity F1-score    mAP (IoU=0.5)
+Erosion         0.91        0.95        0.89        0.93        0.92        0.88
+Osteophytes     0.96        0.98        0.95        0.98        0.97        0.97
+Sclerosis       0.91        0.99        0.88        0.98        0.93        0.87
+SubCyst         0.96        0.95        0.91        0.97        0.93        0.95
+
+Interesting remark: "This study was conducted using only images collected on a single CBCT divice with single imaging parameter from a single institution"
+"to further improve the present study, the gradient-weighted class activation mapping (Grad-CAM) technology, which visualises the region of interest using AI, could be used to improve the explanability of the study"
+==================================================================================================
+The impact of various subtypes of temporomandibular disorders on body balance - preliminary study
+Interesting remark: "Some forms of TMD may affect tge body balance"
+==================================================================================================
+An enhanced encoder-decoder network for temporomandibular joint segmentation in magnetic resonance images
+Data: MRI images, 108 patients diagnosed with TMD or mandibular condyle fractures.
+Model: Cross-slice attention transformer (CAT)
+Results: Dice similarity coefficients of 0.922, 0.834 and 0.837 for the condyle, articular disc and articular eminence
+==================================================================================================
+Automatic classification of temporomandibular joint disorders by magnetic resonance imaging and convolutional neural networks
+Data: 2005 MRI images, 194 patients.
+Model: Yolov3
+Results: Predicting distinct TMJ stages.
+Accuracy 0.9130, 0.8333, 0.9487, 0.8214 and 0.6 for stage 1 2 3 4 5
+==================================================================================================
+DentalSegmentator: Robust open source deep learning-based CT and CBCT image segmentation
+Link: https://www.sciencedirect.com/science/article/pii/S0300571224002999
+Data: 470 CT and CBCT scans. From diversed background and dentofacial deformities. "Patients were considered for inclusion regardless of the condition they presented, and there was no minimum age"
+Model: nnU-net
+Results: Dice similarity coefficient 92.2+-6.3% and normalised surface distance of 98.2+-2.2%
+Interesting remark: "DentalSegmentator open source 3D Slicer extension provides a free, robust, and easy-to-use approach to obtaining patient-specific three-dimensional models from CT and CBCT scans."
+==================================================================================================
+Segment anything in medical images
+https://www.nature.com/articles/s41467-024-44824-z
+Note: This segmentator model was considered but we dicided to go with DentalSegmentator due to it specialized nature.
+==================================================================================================
+Artificial Intelligence in Temporomandibular Joint Disorders: An Umbrella Review
+Interesting remark: "The effectiveness of AI depends on the models and dataset utilized" "A recent observational study demonstrated that ML algorithms based on clinical measurement parameters-such as mouth opening, pain levels, and oral parafunctions-achieved high accuracy"
+==================================================================================================
+Deep learning-based diagnosis of temporomandibular joint osteoarthritis using whole-body bone scans
+https://www.cell.com/iscience/fulltext/S2589-0042(25)02288-6

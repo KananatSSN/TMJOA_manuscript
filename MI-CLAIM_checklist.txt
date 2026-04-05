@@ -1,0 +1,58 @@
+- The clinical problem in which the model will be employed is clearly detailed in the paper.
+The model will be used to classify Temporomandibular joint disorders namely condylar erosion, condyle flattening, generalize sclerosis, osteoarthritis, osteophyte and sub-condral cyst.
+
+- The research question is clearly stated.
+We investigate effectiveness of the 3D CNN based models on vexel data representation against 2D CNN based models with rule based layers of interest extraction method. The goal is to minimize the labeling effort required from the technician (in slice of interest selection step and the locating the sign of disorders on the image step) by training classification model and use grad cam to highlight the sign of disorder instead of training object detection model. The benefit of this approch are 2 folds, first is that it eliminate the need for bounding box labeling and second is that it also minimize the bias from labeler as the TMJ disorder are often ambiguous.
+
+- The characteristics of the cohorts (training and test sets) are detailed in the text.
+[Will write later]
+
+- The cohorts (training and test sets) are shown to be representative of real-world clinical settings.
+[Will write later]
+
+- The state-of-the-art solution used as a baseline for comparison has been identified and detailed. 
+The yolov10 model from Automated diagnosis and classification of temporomandibular joint degenerative disease via artificial intelligence using CBCT imaging.
+
+- The origin of the data is described and the original format is detailed in the paper.
+[Will write later]
+
+- Transformations of the data before it is applied to the proposed model are described.
+1. Get the .dcm image
+2. Convert to .nii.gz
+3. Segment with DentalSegmentator
+4. Crop the condyle head with our method
+    4.1 Binarize the image
+    4.2 Use the 3d skeletonization to skeletonize the image
+    4.3 Get the skeleton point that is closest to a predefine landmark point
+    4.4 Use the point from 4.3 as center, crop 254*254*254 box covering that point
+5. For the data used for 2d model. The 2D images are extracted with 2 methods. 1. Extract from the slices around the slices with maximum non background pixel and 2. Render and extracted as multiview image.
+
+- The independence between training and test sets has been proven in the paper.
+We ensure that the data from the same patient go to the same test/val/test split regardless of left/right side and the year that the image was taken.
+
+- Details on the models that were evaluated and the code developed to select the best model are provided.
+For 2D model we used ResNet50 and Yolo11m-cls. For 3D model we used 3D ResNet18 and yolo11m-cls with modified down sampling layer to make it work with 3D data.
+
+- Is the input data type structured or unstructured?
+Unstructured, they are CBCT images.
+
+- The primary metric selected to evaluate algorithm performance (eg: AUC, F-score, etc) including the justification for selection, has been clearly stated. 
+We train the models as binary classification model for each of the disorders so we use the accuracy precision recall F1-score and AUC as performance metrics.
+
+- The primary metric selected to evaluate the clinical utility of the model (eg PPV, NNT, etc) including the justification for selection, has been clearly stated.
+We use PPV, NNT as we are evaluating binary classification model.
+
+- The performance comparison between baseline and proposed model is presented with the appropriate statistical significance.
+We do not have access to the model or weight of the SOTA model.
+
+- Examination Technique
+Grad cam
+
+- A discussion of the relevance of the examination results with respect to model/algorithm performance is presented.
+[Will write this later]
+
+- A discussion of the feasibility and significance of model interpretability at the case level if examination methods are uninterpretable is presented.
+We can examine the result from the preprocessing in case the preprocessing step is faulthy and Grad cam to see what went wrong.
+
+- A discussion of the reliability and robustness of the model as the underlying data distribution shifts is included.
+We test the reliability and robustness by testing the model on the augmented test set with varying degree of perturbation strength.

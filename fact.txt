@@ -1,0 +1,44 @@
+Methodology
+1. Get the .dcm image
+2. Convert to .nii.gz
+3. Segment with DentalSegmentator
+4. Crop the condyle head with our method
+    4.1 Binarize the image
+    4.2 Use the 3d skeletonization to skeletonize the image
+    4.3 Get the skeleton point that is closest to a predefine landmark point
+    4.4 Use the point from 4.3 as center, crop 254*254*254 box covering that point
+5. Image registration..? This step use 3D slicer module. Not sure if this has any effect. This is to make sure the condyle is in the correct orientation.
+6. Per model preprocessing.
+    6.1 3D model
+        6.1.1 The image is fed to the classification model as is
+    6.2 2D model
+        6.2.1 Multiview model
+            6.2.1.1 Calculate depth and color code it
+            6.2.1.2 Take image from angles
+        6.2.2 Slice model
+            6.2.2 Take a slice from the center (max non bg slice) and 10 slices from every 5 layers away from that slice
+7. Separating train/val/test
+    Make sure that the slice from the same patient go to the same set
+8. Train the model
+    7.1 Augmentation
+        7.1.1 3D augmentation.
+            Rotation
+            RandAug
+        7.1.2 2D augmentation
+            Default from Ultralytics yolo
+9. Result
+
+Narrative
+1. The current result on TMD classification usually use YOLO model (cite) on slice image with hand selected slice. This is weired in the real use case as it imply that when you want to use to model you need to select the slice of interest and then give it to the model. But in the process of selecting the slice of interest it need the practitioner input. It is also hard to use old data in the training as the slice of interest is not usually recorded so if you want to integrate old case to the training set you need to re label the data be selecting the slice of interest, this limit the scalability of the project.
+2. Data quiresition desciption
+    [Dr. Puu]
+3. Methodology
+4. Result (Needed tables)
+    4.1 X = [Model performance metrics: Acc, Precision, Recall, F1]
+        Y = [Model list]
+    4.2 Table show the same 2D model performance on the slices data and multiview data
+    4.3 Table show same model 2D version vs 3D version
+    
+5. Discussion
+6. Conclusion
+    
